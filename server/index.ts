@@ -5,19 +5,19 @@ import User, { IUserDocument } from "./src/models/User";
 import config from "./src/config";
 import cookieParser from "cookie-parser";
 import auth from "./src/middleware/auth";
+import cors from "cors";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
 const port = 5000;
 mongoose
   .connect(config.mongoURI)
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
-
-app.get("/", (req: Request, res: Response) => res.send("hihi"));
 
 app.post("/register", (req: Request, res: Response) => {
   const user = new User(req.body);
