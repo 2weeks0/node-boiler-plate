@@ -64,7 +64,10 @@ app.post("/login", async (req: Request, res: Response) => {
 });
 
 app.get("/auth", auth, (req: Request, res: Response) => {
-  res.json(req.user);
+  res.json({
+    success: true,
+    userInfo: req.user
+  });
 });
 
 app.get("/logout", auth, (req: Request, res: Response) => {

@@ -38,3 +38,12 @@ export async function logout() {
     return e;
   }
 }
+
+export async function auth() {
+  try {
+    const response = await axios.get(baseURL + "/auth");
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+}

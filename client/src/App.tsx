@@ -5,17 +5,27 @@ import { RegisterPage } from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import store from "./store";
 import { Provider } from "react-redux";
+import Auth from "./components/hoc/Auth";
+
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
 function App() {
+  const AuthLandingPage = Auth(LandingPage, null);
+  const AuthLoginPage = Auth(LoginPage, false);
+  const AuthRegisterPage = Auth(RegisterPage, false);
+  
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-        </Routes>
-      </BrowserRouter>
+      <PersistGate persistor={persistStore(store)}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<AuthLandingPage />} />
+            <Route path="login" element={<AuthLoginPage />} />
+            <Route path="register" element={<AuthRegisterPage />} />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }
