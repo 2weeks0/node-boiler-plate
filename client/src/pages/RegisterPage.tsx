@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -72,55 +73,8 @@ interface IPresenterProps {
 
 export const RegisterPagePresenter: FC<IPresenterProps> = (props) => {
   return (
-    <div
-      className="container d-flex flex-column justify-content-center align-items-center"
-      style={{ height: "100vh" }}
-    >
-      <form className="w-25 h-25" onSubmit={(e) => props.onSubmit(e)}>
-        <div className="form-group">
-          <label>Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Enter email"
-            value={props.email}
-            onChange={(e) => props.onChangeEmail(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Password"
-            value={props.password}
-            onChange={(e) => props.onChangePassword(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Confirm Password"
-            value={props.confirmPassword}
-            onChange={(e) => props.onChangeConfirmPassword(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Name"
-            value={props.name}
-            onChange={(e) => props.onChangeName(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">
-          회원가입
-        </button>
-      </form>
-    </div>
+    <Container>
+      
+    </Container>
   );
 };
