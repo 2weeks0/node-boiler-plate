@@ -16,6 +16,7 @@ import React, { FC, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { registerThunk } from "../store/slices/userSlice";
+import resourceString from "../resources/string";
 
 interface RegisterForm {
   [index: string]: string | boolean;
@@ -39,6 +40,8 @@ interface Error {
   value: boolean;
   msg: string;
 }
+
+type Key = "email" | "password" | "confirmPassword" | "name" | "agree";
 
 interface IProps {}
 
@@ -77,7 +80,22 @@ export const RegisterPage: FC<IProps> = (props) => {
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
 
-  const onChangeValue = (key: string, v: string | boolean) => {
+  const getEmptyErrorMsg = (key: Key): string => {
+    switch (key) {
+      case "email":
+        return resourceString.REGISTER_ERROR_EMPTY_EMAIL;
+      case "password":
+        return resourceString.REGISTER_ERROR_EMPTY_PASSWORD;
+      case "confirmPassword":
+        return resourceString.REGISTER_ERROR_EMPTY_CONFIRM_PASSWORD;
+      case "name":
+        return resourceString.REGISTER_ERROR_EMPTY_NAME;
+      case "agree":
+        return resourceString.REGISTER_ERROR_UNCHECK_AGREE;
+    }
+  };
+
+  const onChangeValue = (key: Key, v: string | boolean) => {
     setForm((prev) => ({
       ...prev,
       [key]: v,
@@ -86,7 +104,7 @@ export const RegisterPage: FC<IProps> = (props) => {
       ...prev,
       [key]: {
         value: !v,
-        msg: !v ? `${key}을(를) 입력하세요.` : "",
+        msg: !v ? getEmptyErrorMsg(key) : "",
       },
     }));
   };
@@ -109,7 +127,7 @@ export const RegisterPage: FC<IProps> = (props) => {
           ...prev,
           [key]: {
             value: !form[key],
-            msg: !form[key] ? `${key}을(를) 입력하세요.` : "",
+            msg: !form[key] ? getEmptyErrorMsg(key as Key) : "",
           },
         }))
       );
@@ -117,11 +135,10 @@ export const RegisterPage: FC<IProps> = (props) => {
     }
 
     if (form.password !== form.confirmPassword) {
-      const errorMsg = "비밀번호와 비밀번호 확인이 다릅니다.";
       setError((prev) => ({
         ...prev,
-        password: { value: true, msg: errorMsg },
-        confirmPassword: { value: true, msg: errorMsg },
+        password: { value: true, msg: resourceString.REGISTER_ERROR_DIFF_PASSWORD_CONFIRM },
+        confirmPassword: { value: true, msg: resourceString.REGISTER_ERROR_DIFF_PASSWORD_CONFIRM },
       }));
       return;
     }
@@ -152,7 +169,7 @@ export const RegisterPage: FC<IProps> = (props) => {
 interface IPresenterProps {
   form: RegisterForm;
   error: RegisterError;
-  onChangeValue: (key: string, v: string | boolean) => void;
+  onChangeValue: (key: Key, v: string | boolean) => void;
   onSubmit: () => Promise<void>;
   inputRefs: React.MutableRefObject<any>;
   onKeyPress: (event: React.KeyboardEvent, index: number) => void;
@@ -182,11 +199,11 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
         <LockOutlined />
       </Avatar>
       <Typography variant="h5" margin="normal">
-        회원가입
+        {resourceString.REGISTER_TITLE}
       </Typography>
 
       <TextField
-        label="E-mail"
+        label={resourceString.REGISTER_LABEL_EMAIL}
         variant="outlined"
         margin="normal"
         type="email"
@@ -202,7 +219,7 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
       />
 
       <TextField
-        label="Password"
+        label={resourceString.REGISTER_LABEL_PASSWORD}
         variant="outlined"
         margin="normal"
         type="password"
@@ -217,7 +234,7 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
       />
 
       <TextField
-        label="Confirm Password"
+        label={resourceString.REGISTER_LABEL_CONFIRM_PASSWORD}
         variant="outlined"
         margin="normal"
         type="password"
@@ -232,7 +249,7 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
       />
 
       <TextField
-        label="Name"
+        label={resourceString.REGISTER_LABEL_NAME}
         variant="outlined"
         margin="normal"
         type="text"
@@ -255,7 +272,7 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
                 onChange={(e) => onChangeValue("agree", e.target.checked)}
               />
             }
-            label="이용 약관에 동의합니다."
+            label={resourceString.REGISTER_LABEL_AGREE}
             onKeyUp={(e) => onKeyPress(e, 4)}
             inputRef={(ref) => (inputRefs.current[4] = ref)}
           />
@@ -264,12 +281,12 @@ export const RegisterPagePresenter: FC<IPresenterProps> = ({
       </Grid>
 
       <Button variant="contained" fullWidth onClick={onSubmit} sx={{ m: 2 }}>
-        회원가입
+        {resourceString.REGISTER_LABEL_BTN_REGISTER}
       </Button>
 
       <Grid container>
         <Grid item xs />
-        <Link href="/login">로그인</Link>
+        <Link href="/login">{resourceString.REGISTER_LABEL_LINK_LOGIN}</Link>
       </Grid>
     </Container>
   );
