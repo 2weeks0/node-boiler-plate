@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
-import { RegisterPage } from "./pages/RegisterPage";
+import RegisterPage from "./pages/RegisterPage";
 import { LoginPage } from "./pages/LoginPage";
 import store from "./store";
 import { Provider } from "react-redux";
