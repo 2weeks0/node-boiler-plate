@@ -1,7 +1,7 @@
 import { ComponentType, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { authThunk, selectUserInfo } from "../store/slices/userSlice";
+import { authThunk, selectUserInfo } from "../stores/slices/userSlice";
 
 export default function Auth<T>(Component: ComponentType<T>, option: boolean | null) {
   const AuthCheck = (props: T) => {
@@ -10,7 +10,6 @@ export default function Auth<T>(Component: ComponentType<T>, option: boolean | n
     const userInfo = useSelector(selectUserInfo);
 
     useEffect(() => {
-      console.log("dispatch");
       dispatch(authThunk());
     }, [dispatch]);
 

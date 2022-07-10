@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { login, ILoginBody, register, IRegisterBody, logout, auth } from "../../apis/user";
+import { RequestRegisterDto, RequestLoginDto } from "../../apis/dtos/user";
+import { userApi } from "../../apis/user";
 
 const userSlice = createSlice({
   name: "user",
@@ -36,17 +37,17 @@ const userSlice = createSlice({
 
 export const loginThunk = createAsyncThunk(
   "user/login",
-  async (body: ILoginBody) => await login(body)
+  async (requestLoginDto: RequestLoginDto) => await userApi.login(requestLoginDto)
 );
 
 export const registerThunk = createAsyncThunk(
   "user/register",
-  async (body: IRegisterBody) => await register(body)
+  async (requestRegisterDto: RequestRegisterDto) => await userApi.register(requestRegisterDto)
 );
 
-export const logoutThunk = createAsyncThunk("user/logout", async () => await logout());
+export const logoutThunk = createAsyncThunk("user/logout", async () => await userApi.logout());
 
-export const authThunk = createAsyncThunk("user/auth", async () => await auth());
+export const authThunk = createAsyncThunk("user/auth", async () => await userApi.auth());
 
 export const selectUserId = (state: any) => state.user.userId;
 export const selectUserInfo = (state: any) => state.user.userInfo;

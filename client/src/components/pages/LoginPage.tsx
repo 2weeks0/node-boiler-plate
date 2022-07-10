@@ -11,7 +11,7 @@ import {
   Link,
 } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
-import { loginThunk } from "../../store/slices/userSlice";
+import { loginThunk } from "../../stores/slices/userSlice";
 
 interface IProps {}
 

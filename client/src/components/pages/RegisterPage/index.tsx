@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
 import resourceString from "../../../resources/string";
-import { registerThunk } from "../../../store/slices/userSlice";
+import { registerThunk } from "../../../stores/slices/userSlice";
 import { InputForm, RegisterPagePresenter } from "./RegisterPage";
 
 interface IProps {}

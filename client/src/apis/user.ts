@@ -1,49 +1,53 @@
-import axios from "axios";
-import { baseURL } from "./index";
+import { axiosInstance } from "./index";
+import {
+  RequestRegisterDto,
+  ResponseRegisterDto,
+  RequestLoginDto,
+  ResponseLoginDto,
+  ResponseLogoutDto,
+  ResponseAuthDto,
+} from "./dtos/user";
 
-export interface ILoginBody {
-  email: string;
-  password: string;
+interface UserApi {
+  register: (requestRegisterDto: RequestRegisterDto) => Promise<ResponseRegisterDto>;
+  login: (requestLoginDto: RequestLoginDto) => Promise<ResponseLoginDto>;
+  logout: () => Promise<ResponseLogoutDto>;
+  auth: () => Promise<ResponseAuthDto>;
 }
 
-export async function login(body: ILoginBody) {
-  try {
-    const response = await axios.post(baseURL + "/login", body);
-    return response.data;
-  } catch (e) {
-    return e;
-  }
-}
-
-export interface IRegisterBody {
-  email: string;
-  password: string;
-  name: string;
-}
-
-export async function register(body: IRegisterBody) {
-  try {
-    const response = await axios.post(baseURL + "/register", body);
-    return response.data;
-  } catch (e) {
-    return e;
-  }
-}
-
-export async function logout() {
-  try {
-    const response = await axios.get(baseURL + "/logout");
-    return response.data;
-  } catch (e) {
-    return e;
-  }
-}
-
-export async function auth() {
-  try {
-    const response = await axios.get(baseURL + "/auth");
-    return response.data;
-  } catch (e) {
-    return e;
-  }
-}
+export const userApi: UserApi = {
+  register: async (requestRegisterDto: RequestRegisterDto): Promise<ResponseRegisterDto> => {
+    return (
+      await axiosInstance.request({
+        method: "POST",
+        url: "/register",
+        data: requestRegisterDto,
+      })
+    ).data;
+  },
+  login: async (requestLoginDto: RequestLoginDto): Promise<ResponseLoginDto> => {
+    return (
+      await axiosInstance.request({
+        method: "POST",
+        url: "/login",
+        data: requestLoginDto,
+      })
+    ).data;
+  },
+  logout: async (): Promise<ResponseLogoutDto> => {
+    return (
+      await axiosInstance.request({
+        method: "GET",
+        url: "/logout",
+      })
+    ).data;
+  },
+  auth: async (): Promise<ResponseAuthDto> => {
+    return (
+      await axiosInstance.request({
+        method: "GET",
+        url: "/auth",
+      })
+    ).data;
+  },
+};
