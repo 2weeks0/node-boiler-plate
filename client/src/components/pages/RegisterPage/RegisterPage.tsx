@@ -9,8 +9,8 @@ import {
   Link,
 } from "@mui/material";
 import React, { FC } from "react";
-import { UseInput } from "../../hooks/useInput";
-import resourceString from "../../resources/string";
+import { UseInput } from "../../../hooks/useInput";
+import resourceString from "../../../resources/string";
 
 export interface InputForm {
   [index: string]: UseInput;

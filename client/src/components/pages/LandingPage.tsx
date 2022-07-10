@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { LogoutButton } from "../components/LogoutButton";
+import { LogoutButton } from "../atoms/LogoutButton";
 
 interface IProps {}
 

@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LandingPage } from "./pages/LandingPage";
-import RegisterPage from "./pages/RegisterPage";
-import { LoginPage } from "./pages/LoginPage";
 import store from "./store";
 import { Provider } from "react-redux";
-import Auth from "./components/hoc/Auth";
 
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import Auth from "./hocs/Auth";
+import { LoginPage } from "./components/pages/LoginPage";
+import { LandingPage } from "./components/pages/LandingPage";
+import RegisterPage from "./components/pages/RegisterPage";
 
 function App() {
   const AuthLandingPage = Auth(LandingPage, null);

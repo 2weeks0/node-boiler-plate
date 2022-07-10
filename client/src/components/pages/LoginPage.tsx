@@ -1,6 +1,5 @@
 import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginThunk } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -12,6 +11,7 @@ import {
   Link,
 } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
+import { loginThunk } from "../../store/slices/userSlice";
 
 interface IProps {}
 

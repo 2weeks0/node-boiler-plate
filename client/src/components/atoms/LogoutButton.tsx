@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
-import { logoutThunk } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { logoutThunk } from "../../store/slices/userSlice";
 
 interface IProps {}
 
